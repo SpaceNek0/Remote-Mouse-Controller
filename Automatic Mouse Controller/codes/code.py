@@ -198,7 +198,6 @@ class windowForm(QWidget):
     #widgets placed into variables
         self.btnRecord = self.ui.buttonRecord
         self.btnPlay = self.ui.buttonPlay
-        #self.btnSave = self.ui.buttonSave
 
         self.counterLoopCount = self.ui.counterLoopValue
 
@@ -210,7 +209,6 @@ class windowForm(QWidget):
     #widget functions
         self.btnRecord.clicked.connect(self.on_btn_press_btnRecord)
         self.btnPlay.clicked.connect(self.on_btn_press_btnPlay)
-        #self.btnSave.clicked.connect(self.on_btn_press_btnSave)
 
     #default values
         self.statusValues = ["idle", "working", "recording", "playing", "gioghet"]
@@ -222,7 +220,6 @@ class windowForm(QWidget):
 
     #UI Settings
         self.btnPlay.setEnabled(False)
-        #self.btnSave.setEnabled(False)
 
 #functions when a widget is pressed
     def on_btn_press_btnRecord(self):
@@ -241,13 +238,11 @@ class windowForm(QWidget):
         self.currentMovement = []
         self.btnRecord.setEnabled(False)
         self.btnPlay.setEnabled(False)
-        #self.btnSave.setEnabled(False)
         self.status.setText(self.statusValues[2])
         self.selectedMovement.setText(self.selectedMovementValues[0])
         self.currentMovement.clear()
 
         if not self.mouseObserver.isRunning():
-            #self.mouseObserver.start()
             self.mouseObserver.restart()
             print("starting mouse worker thread")
 
@@ -270,7 +265,6 @@ class windowForm(QWidget):
         print("playing selected mouse movement")
         self.btnRecord.setEnabled(False)
         self.btnPlay.setEnabled(False)
-        #self.btnSave.setEnabled(False)
         self.status.setText("working")
 
         self.selectedMovement.setText("Press enter to stop mouse playback")
@@ -296,9 +290,7 @@ class windowForm(QWidget):
         self.btnPlay.setEnabled(True)
         self.status.setText(self.statusValues[0])
         self.mouseMover.stop()
-        #self.mouseObserver.stop()
-        #self.keyboardObserver.stop()
-        #self.selectedMovement.setText("Recorded movement using record button")
+        self.keyboardObserver.stop()
         print("Mouse mover done")
 
     def stopPlayback(self):
@@ -308,7 +300,4 @@ class windowForm(QWidget):
         self.status.setText(self.statusValues[0])
         self.mouseMover.stop()
         self.keyboardObserver.stop()
-        #self.mouseObserver.stop()
-        #self.keyboardObserver.stop()
-        #self.selectedMovement.setText("Recorded movement using record button")
         print("Mouse mover done")
